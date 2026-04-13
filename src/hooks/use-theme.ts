@@ -3,12 +3,18 @@
  * https://docs.expo.dev/guides/color-schemes/
  */
 
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { theme } from "@/theme/tokens";
+import { useColorScheme } from "@/hooks/use-color-scheme";
 
 export function useTheme() {
   const scheme = useColorScheme();
-  const theme = scheme === 'unspecified' ? 'light' : scheme;
+  // TODO: esta vaina selecciona dark que es el default theme
+  const colorSchema = scheme === "light" ? theme.colors.dark : theme.colors.light;
 
-  return Colors[theme];
+  return {
+    radii: theme.radii,
+    spacing: theme.spacing,
+    typography: theme.typography,
+    colors: colorSchema,
+  };
 }
