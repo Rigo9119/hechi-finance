@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { ScrollView } from "react-native";
+import { router } from "expo-router";
 
 import { theme } from "@/theme/tokens";
 import ViewHeader from "@/components/view-header";
@@ -16,7 +17,11 @@ export default function HomeScreen() {
       <ViewHeader title="Patrimonio total" amount="184.000.000" currency={COP_CURRENCY} />
       <MonthlyStatement />
       {/*Mis cuentas*/}
-      <SectionContainer title="Mis Cuentas" subtitle="Ver todas">
+      <SectionContainer
+        title="Mis Cuentas"
+        subtitle="Ver todas"
+        onSubtitlePress={() => router.push("/(app)/accounts")}
+      >
         {ACCOUNTS_DEMO.map((account) => (
           <SmallCard key={account.id} {...account} />
         ))}
@@ -34,7 +39,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     gap: theme.spacing.md,
-    justifyContent: "flex-start",
+    justifyContent: "center",
     flexDirection: "column",
     backgroundColor: theme.colors.dark.black,
     paddingVertical: 4,

@@ -2,13 +2,20 @@ import {
   ArrowDownRight,
   ArrowLeftRight,
   ArrowUpRight,
+  Bell,
   Calendar,
+  ChevronLeft,
+  ChevronRight,
+  CircleCheck,
   CreditCard,
   Landmark,
   LayoutDashboard,
+  Lock,
+  LogOut,
   PiggyBank,
   SquareUser,
   TrendingUp,
+  User,
   Wallet,
   type LucideProps,
 } from "lucide-react-native";
@@ -28,7 +35,15 @@ const icons = {
   wallet: Wallet,
   investment: TrendingUp,
   credit: CreditCard,
-  //Msc
+  // Profile / settings
+  user: User,
+  bell: Bell,
+  lock: Lock,
+  chevronLeft: ChevronLeft,
+  chevronRight: ChevronRight,
+  check: CircleCheck,
+  logout: LogOut,
+  // Misc
   calendar: Calendar,
 } as const;
 
