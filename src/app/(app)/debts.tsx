@@ -13,7 +13,10 @@ const utilizationPercent = Math.round((totalUsed / totalLimit) * 100);
 
 export default function DebtsScreen() {
   return (
-    <ScrollView style={styles.scrollView} contentContainerStyle={styles.contentContainer}>
+    <ScrollView
+      style={styles.scrollView}
+      contentContainerStyle={styles.contentContainer}
+    >
       <ThemedView style={styles.container}>
         <BalanceCard
           label="Total adeudado"

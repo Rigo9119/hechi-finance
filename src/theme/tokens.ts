@@ -55,7 +55,7 @@ export const theme = {
       lineHeight: 24,
     },
     bodyBold: {
-      fontFamily: fontFamily.semibold,
+      fontFamily: fontFamily.bold,
       fontSize: 16,
       lineHeight: 24,
     },

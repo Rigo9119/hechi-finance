@@ -8,7 +8,10 @@ import { ACCOUNTS_DEMO } from "@/data/demo-data/demo-data";
 
 export default function AccountsScreen() {
   return (
-    <ScrollView style={styles.scrollView} contentContainerStyle={styles.contentContainer}>
+    <ScrollView
+      style={styles.scrollView}
+      contentContainerStyle={styles.contentContainer}
+    >
       <ThemedView style={styles.container}>
         {ACCOUNTS_DEMO.map((account) => (
           <Pressable
@@ -31,6 +34,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flexDirection: "column",
+    paddingTop: theme.spacing.md,
   },
   container: {
     maxWidth: MaxContentWidth,

@@ -43,5 +43,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: theme.colors.dark.black,
     paddingVertical: 4,
+    paddingHorizontal: theme.spacing.md,
   },
 });

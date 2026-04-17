@@ -10,10 +10,24 @@ function BackButton() {
   return (
     <Pressable
       onPress={() => router.back()}
-      style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1, paddingLeft: theme.spacing.sm })}
+      style={({ pressed }) => ({
+        opacity: pressed ? 0.5 : 1,
+        paddingLeft: theme.spacing.sm,
+      })}
     >
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <Icon name="chevronLeft" size={24} color={theme.colors.primary} strokeWidth={2} />
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          paddingRight: theme.spacing.md,
+        }}
+      >
+        <Icon
+          name="chevronLeft"
+          size={24}
+          color={theme.colors.primary}
+          strokeWidth={2}
+        />
         <ThemedText type="body" style={{ color: theme.colors.primary }}>
           Volver
         </ThemedText>

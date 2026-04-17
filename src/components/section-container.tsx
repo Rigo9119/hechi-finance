@@ -9,12 +9,29 @@ export interface SectionContainerProps {
   children?: React.ReactNode;
 }
 
-export default function SectionContainer({ title, subtitle, onSubtitlePress, children }: SectionContainerProps) {
+export default function SectionContainer({
+  title,
+  subtitle,
+  onSubtitlePress,
+  children,
+}: SectionContainerProps) {
   const { colors, spacing } = useTheme();
   return (
-    <View style={{ flexDirection: "column", justifyContent: "space-between", gap: spacing.md }}>
-      <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-        <ThemedText type="bodyMedium" style={{ color: colors.white }}>
+    <View
+      style={{
+        flexDirection: "column",
+        justifyContent: "space-between",
+        gap: spacing.md,
+      }}
+    >
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <ThemedText type="bodyBold" style={{ color: colors.white }}>
           {title}
         </ThemedText>
         {subtitle && (
@@ -29,7 +46,13 @@ export default function SectionContainer({ title, subtitle, onSubtitlePress, chi
         )}
       </View>
       {children && (
-        <View style={{ flexDirection: "column", justifyContent: "space-between", gap: spacing.md }}>
+        <View
+          style={{
+            flexDirection: "column",
+            justifyContent: "space-between",
+            gap: spacing.md,
+          }}
+        >
           {children}
         </View>
       )}

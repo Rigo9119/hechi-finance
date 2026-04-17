@@ -9,7 +9,10 @@ import { Icon } from "@/components/icon";
 import SmallCard from "@/components/cards/small-card";
 import SectionContainer from "@/components/section-container";
 import { useTheme } from "@/hooks/use-theme";
-import { ACCOUNTS_DEMO, ACCOUNT_TRANSACTIONS_DEMO } from "@/data/demo-data/demo-data";
+import {
+  ACCOUNTS_DEMO,
+  ACCOUNT_TRANSACTIONS_DEMO,
+} from "@/data/demo-data/demo-data";
 
 export default function AccountDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -17,7 +20,9 @@ export default function AccountDetailScreen() {
   const navigation = useNavigation();
 
   const account = ACCOUNTS_DEMO.find((a) => a.id === id);
-  const transactions = ACCOUNT_TRANSACTIONS_DEMO.filter((t) => t.accountId === id);
+  const transactions = ACCOUNT_TRANSACTIONS_DEMO.filter(
+    (t) => t.accountId === id,
+  );
 
   useEffect(() => {
     if (account) {
@@ -28,9 +33,11 @@ export default function AccountDetailScreen() {
   if (!account) return null;
 
   return (
-    <ScrollView style={styles.scrollView} contentContainerStyle={styles.contentContainer}>
+    <ScrollView
+      style={styles.scrollView}
+      contentContainerStyle={styles.contentContainer}
+    >
       <ThemedView style={styles.container}>
-
         {/* Account summary card */}
         <View
           style={{
@@ -51,15 +58,24 @@ export default function AccountDetailScreen() {
               justifyContent: "center",
             }}
           >
-            <Icon name={account.icon} size={28} color={theme.colors.secondary} strokeWidth={1.5} />
+            <Icon
+              name={account.icon}
+              size={28}
+              color={theme.colors.secondary}
+              strokeWidth={1.5}
+            />
           </View>
 
           <View style={{ alignItems: "center", gap: 4 }}>
             <ThemedText type="bodyBold" style={{ color: theme.colors.white }}>
               {account.title}
             </ThemedText>
-            <ThemedText type="caption" style={{ color: theme.colors.white, opacity: 0.5 }}>
-              {account.subtitle}{account.detail ? `  ${account.detail}` : ""}
+            <ThemedText
+              type="caption"
+              style={{ color: theme.colors.white, opacity: 0.5 }}
+            >
+              {account.subtitle}
+              {account.detail ? `  ${account.detail}` : ""}
             </ThemedText>
           </View>
 
@@ -85,7 +101,14 @@ export default function AccountDetailScreen() {
             ))}
           </SectionContainer>
         ) : (
-          <ThemedText type="caption" style={{ color: theme.colors.white, opacity: 0.4, textAlign: "center" }}>
+          <ThemedText
+            type="caption"
+            style={{
+              color: theme.colors.white,
+              opacity: 0.4,
+              textAlign: "center",
+            }}
+          >
             Sin movimientos recientes
           </ThemedText>
         )}
@@ -101,6 +124,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flexDirection: "column",
+    paddingTop: theme.spacing.md,
   },
   container: {
     maxWidth: MaxContentWidth,
