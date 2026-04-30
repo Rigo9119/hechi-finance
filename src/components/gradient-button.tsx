@@ -1,6 +1,7 @@
 import { ActivityIndicator, Pressable, StyleSheet, type PressableProps } from "react-native";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
+import * as Haptics from "expo-haptics";
 
 import { ThemedText } from "@/components/themed-text";
 import { theme } from "@/theme/tokens";
@@ -13,9 +14,14 @@ type GradientButtonProps = Omit<PressableProps, "style"> & {
 };
 
 export function GradientButton({ label, loading, disabled, onPress, ...rest }: GradientButtonProps) {
+  function handlePress(e: any) {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+    onPress?.(e);
+  }
+
   return (
     <Pressable
-      onPress={onPress}
+      onPress={handlePress}
       disabled={disabled || loading}
       style={({ pressed }) => [styles.root, { opacity: pressed || loading ? 0.7 : 1 }]}
       {...rest}

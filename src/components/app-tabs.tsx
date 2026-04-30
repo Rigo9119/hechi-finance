@@ -1,9 +1,16 @@
+import { useEffect } from "react";
 import { Pressable, StyleSheet, View } from "react-native";
 import { Tabs, useRouter, useSegments } from "expo-router";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from "react-native-reanimated";
+import * as Haptics from "expo-haptics";
 
 import { Icon, type IconName } from "@/components/icon";
 import { ThemedText } from "@/components/themed-text";
@@ -23,29 +30,51 @@ const TAB_ROUTES = [
 
 const ICON_SIZE = 22;
 
-function TabIcon({ name, focused }: { name: IconName; focused: boolean }) {
-  if (!focused) {
-    return (
-      <Icon name={name} size={ICON_SIZE} color="rgba(248,249,250,0.4)" strokeWidth={1.5} />
-    );
+function TabItem({ name, route, icon, focused }: {
+  name: string;
+  route: string;
+  icon: IconName;
+  focused: boolean;
+}) {
+  const router = useRouter();
+  const scale = useSharedValue(1);
+
+  useEffect(() => {
+    scale.value = withSpring(focused ? 1.2 : 1, { damping: 12, stiffness: 180 });
+  }, [focused]);
+
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  function handlePress() {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    router.push(route as any);
   }
 
   return (
-    <MaskedView
-      maskElement={<Icon name={name} size={ICON_SIZE} color="#fff" strokeWidth={2} />}
-    >
-      <LinearGradient
-        colors={GRADIENT_COLORS}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={{ width: ICON_SIZE, height: ICON_SIZE }}
-      />
-    </MaskedView>
+    <Pressable onPress={handlePress} style={styles.tabItem} hitSlop={8}>
+      <Animated.View style={animatedStyle}>
+        {focused ? (
+          <MaskedView
+            maskElement={<Icon name={icon} size={ICON_SIZE} color="#fff" strokeWidth={2} />}
+          >
+            <LinearGradient
+              colors={GRADIENT_COLORS}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={{ width: ICON_SIZE, height: ICON_SIZE }}
+            />
+          </MaskedView>
+        ) : (
+          <Icon name={icon} size={ICON_SIZE} color="rgba(248,249,250,0.4)" strokeWidth={1.5} />
+        )}
+      </Animated.View>
+    </Pressable>
   );
 }
 
 function FloatingTabBar() {
-  const router = useRouter();
   const segments = useSegments();
   const { bottom } = useSafeAreaInsets();
 
@@ -60,14 +89,7 @@ function FloatingTabBar() {
       {TAB_ROUTES.map(({ name, route, icon }) => {
         const focused = currentSegment === name || (name === "index" && currentSegment === "(app)");
         return (
-          <Pressable
-            key={name}
-            onPress={() => router.push(route as any)}
-            style={styles.tabItem}
-            hitSlop={8}
-          >
-            <TabIcon name={icon} focused={focused} />
-          </Pressable>
+          <TabItem key={name} name={name} route={route} icon={icon} focused={focused} />
         );
       })}
     </View>
