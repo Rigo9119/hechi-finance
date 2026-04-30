@@ -52,7 +52,7 @@ function FloatingTabBar() {
   const currentSegment = segments[segments.length - 1];
 
   return (
-    <View style={[styles.tabBarContainer, { bottom: Math.max(bottom, 16) + 12 }]}>
+    <View style={[styles.tabBarContainer, { bottom: Math.max(bottom, 8) }]}>
       <View style={styles.tabBarBackground}>
         <BlurView intensity={80} tint="dark" style={StyleSheet.absoluteFill} />
         <View style={styles.tabBarOverlay} />
