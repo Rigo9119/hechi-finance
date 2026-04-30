@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { ActivityIndicator, Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
 import { ThemedText } from "@/components/themed-text";
 import { ThemedInput } from "@/components/themed-input";
+import { GradientButton } from "@/components/gradient-button";
 import { useAuth } from "@/context/auth-context";
 import { useTheme } from "@/hooks/use-theme";
 import { theme } from "@/theme/tokens";
@@ -89,26 +90,11 @@ export default function LoginScreen() {
           </ThemedText>
         ) : null}
 
-        <Pressable
+        <GradientButton
+          label="Iniciar sesión"
+          loading={loading}
           onPress={handleLogin}
-          disabled={loading}
-          style={({ pressed }) => [styles.button, { opacity: pressed || loading ? 0.7 : 1 }]}
-        >
-          <LinearGradient
-            colors={["#CCFF00", "#99CC00"]}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={styles.buttonGradient}
-          >
-            {loading ? (
-              <ActivityIndicator color="#000" />
-            ) : (
-              <ThemedText type="bodyBold" style={{ color: "#000" }}>
-                Iniciar sesión
-              </ThemedText>
-            )}
-          </LinearGradient>
-        </Pressable>
+        />
       </View>
     </View>
   );
@@ -136,15 +122,5 @@ const styles = StyleSheet.create({
   },
   form: {
     gap: theme.spacing.md,
-  },
-  button: {
-    borderRadius: theme.radii.md,
-    overflow: "hidden",
-    marginTop: theme.spacing.xs,
-  },
-  buttonGradient: {
-    paddingVertical: theme.spacing.md,
-    alignItems: "center",
-    justifyContent: "center",
   },
 });
